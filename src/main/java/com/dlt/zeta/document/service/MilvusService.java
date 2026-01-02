@@ -59,9 +59,9 @@ public class MilvusService {
 	}
 	
 	@Transactional
-	public List<PageSearchResult> semanticSearch(String query, int topK) {
+	public List<PageSearchResult> semanticSearch(UUID sessionId, String query, int topK) {
 		SearchResults searchResults = repository
-				.semanticSearch(chatService.generateEmbeddings(query), topK);
+				.semanticSearch(sessionId, chatService.generateEmbeddings(query), topK);
 		return MilvusMapper.toSearchResults(searchResults);
 	}
 	

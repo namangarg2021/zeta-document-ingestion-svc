@@ -8,6 +8,8 @@ import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
+import java.util.UUID;
+
 @Path("/documents")
 @Produces(MediaType.APPLICATION_JSON)
 public class PdfUploadResource {
@@ -27,9 +29,10 @@ public class PdfUploadResource {
 	}
 	
 	@GET
-	@Path("/search")
+	@Path("/search/{sessionId}")
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response search(@QueryParam("query") String query) {
-		return Response.ok(pdfQueryService.search(query, 2)).build();
+	public Response search(@PathParam("sessionId") UUID sessionId,
+	                       @QueryParam("query") String query) {
+		return Response.ok(pdfQueryService.search(sessionId, query, 2)).build();
 	}
 }

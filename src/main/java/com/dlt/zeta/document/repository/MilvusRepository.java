@@ -3,7 +3,6 @@ package com.dlt.zeta.document.repository;
 import com.dlt.zeta.document.entity.MilvusPage;
 import com.dlt.zeta.document.mapper.MilvusMapper;
 import com.dlt.zeta.document.model.milvus.MilvusPageDTO;
-import com.dlt.zeta.document.model.milvus.PageSearchResult;
 import com.dlt.zeta.document.model.milvus.PageSummaryView;
 import io.milvus.client.MilvusServiceClient;
 import io.milvus.grpc.FieldData;
@@ -97,7 +96,7 @@ public class MilvusRepository {
 		QueryParam queryParam = QueryParam.newBuilder()
 				.withCollectionName(COLLECTION)
 				.withExpr("document_name == \"" + documentName + "\" && " +
-								"session_id == \"" + sessionId.toString() + "\"")
+								"session_id == \"" + sessionId + "\"")
 				.withOutFields(List.of("page_number", "page_summary"))
 				.build();
 		
@@ -108,9 +107,10 @@ public class MilvusRepository {
 		return results;
 	}
 	
-	public SearchResults semanticSearch(List<Float> queryVector, int topK) {
+	public SearchResults semanticSearch(UUID sessionId, List<Float> queryVector, int topK) {
 		SearchParam searchParam = SearchParam.newBuilder()
 				.withCollectionName(COLLECTION)
+				.withExpr("session_id == \"" + sessionId + "\"")
 				.withVectorFieldName("page_vector")
 				.withVectors(List.of(queryVector))
 				.withTopK(topK)

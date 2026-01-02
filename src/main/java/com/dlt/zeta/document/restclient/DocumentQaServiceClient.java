@@ -18,7 +18,7 @@ import org.eclipse.microprofile.rest.client.inject.RegisterRestClient;
 public interface DocumentQaServiceClient {
 	
 	@POST
-	@Path("/document/retrieve-context")
+	@Path("/convert-to-markdown")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	@Retry(maxRetries = 1, delay = 100)

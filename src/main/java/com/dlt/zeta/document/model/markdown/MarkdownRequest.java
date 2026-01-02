@@ -8,5 +8,5 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class MarkdownRequest {
-	private byte[] pageBytes;
+	private String pageBytes;
 }

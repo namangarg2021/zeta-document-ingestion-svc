@@ -3,7 +3,7 @@ package com.dlt.zeta.document.service;
 import com.dlt.zeta.document.entity.MilvusPage;
 import com.dlt.zeta.document.mapper.MilvusMapper;
 import com.dlt.zeta.document.model.PdfUploadForm;
-import com.dlt.zeta.document.model.milvus.MilvusPageDTO;
+import com.dlt.zeta.document.model.markdown.MarkdownRequest;
 import com.dlt.zeta.document.restclient.DocumentQaServiceClient;
 import com.dlt.zeta.document.util.PdfUtil;
 import com.dlt.zeta.document.util.PdfValidatorUtil;
@@ -13,6 +13,7 @@ import lombok.extern.jbosslog.JBossLog;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
 import org.jboss.resteasy.reactive.multipart.FileUpload;
 
+import java.util.Base64;
 import java.util.List;
 import java.util.UUID;
 
@@ -47,11 +48,13 @@ public class PdfIngestionService {
 			for (byte[] pageBytes : pages) {
 				
 				// TODO will call Python service once API ready
-//				String markdown = documentQaServiceClient
-//						.convertPageBytesToMarkdown(new MarkdownRequest(pageBytes))
-//						.getMarkdown();
+				String markdown = documentQaServiceClient
+						.convertPageBytesToMarkdown(new MarkdownRequest(
+								Base64.getEncoder().encodeToString(pageBytes)))
+						.getMarkdown();
+				System.out.println(markdown);
 				
-				String markdown = pageSummarisationService.generateSummary(pageBytes);
+				// String markdown = pageSummarisationService.generateSummary(pageBytes);
 				log.infof("Summary generated for page %d", pageNumber);
 				
 				List<Float> embedding = chatService.generateEmbeddings(markdown);

@@ -10,6 +10,7 @@ import jakarta.inject.Inject;
 import lombok.extern.jbosslog.JBossLog;
 
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @ApplicationScoped
@@ -22,9 +23,9 @@ public class PdfQueryService {
 	@Inject
 	MilvusService milvusService;
 	
-	public String search(String userQuery, int topK) {
+	public String search(UUID sessionId, String userQuery, int topK) {
 		List<PageSearchResult> pageSearchResults = milvusService
-				.semanticSearch(userQuery, topK);
+				.semanticSearch(sessionId, userQuery, topK);
 		String context = pageSearchResults.stream()
 				.map(PageSearchResult::getPageSummary)
 				.collect(Collectors.joining("\n"));
