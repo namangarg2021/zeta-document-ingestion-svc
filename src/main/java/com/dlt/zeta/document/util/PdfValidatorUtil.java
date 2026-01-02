@@ -50,11 +50,6 @@ public class PdfValidatorUtil {
 	
 	
 	public static void validateUpload(PdfUploadWorkflowRequest request) {
-		if(request.getSessionId() == null) {
-			throw new CustomAPIException("Cannot upload documents without creating a session",
-					413, "DOCQA-1004");
-		}
-		
 		long totalSize = 0;
 		for (PdfFilePayload upload : request.getFiles()) {
 			totalSize += upload.getPdfBytes().length;
