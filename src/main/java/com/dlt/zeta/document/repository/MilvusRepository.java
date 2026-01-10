@@ -23,7 +23,7 @@ import java.util.*;
 @JBossLog
 public class MilvusRepository {
 	
-	private static final String COLLECTION = "milvus_pages";
+	private static final String COLLECTION = "document_qa_collection_5";
 	
 	@Inject
 	MilvusServiceClient client;

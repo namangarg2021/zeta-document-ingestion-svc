@@ -34,7 +34,7 @@ public class VectorStoreConfig {
 		return MilvusEmbeddingStore.builder()
 				.host("localhost")
 				.port(19530)
-				.collectionName("milvus_pages")
+				.collectionName("document_qa_collection_5")
 				.dimension(384)
 				.build();
 	}

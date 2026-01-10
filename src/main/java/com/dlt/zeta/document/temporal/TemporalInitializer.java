@@ -50,6 +50,9 @@ public class TemporalInitializer {
 	@Inject
 	SummarizePageActivity summarizePageActivityActivity;
 	
+	@Inject
+	ReadFileFromS3Activity readFileFromS3Activity;
+	
 	private WorkerFactory workerFactory;
 	
 	public void onStart(@Observes StartupEvent ev) {
@@ -86,7 +89,8 @@ public class TemporalInitializer {
 			Worker parentWorker = workerFactory.newWorker(PDF_INGESTION_QUEUE);
 			parentWorker.registerWorkflowImplementationTypes(PdfIngestionWorkflowImpl.class);
 			parentWorker.registerActivitiesImplementations(validateUploadActivity, extractPdfActivity,
-					generateEmbeddingActivity, insertMilvusPageActivity, summarizePageActivityActivity);
+					generateEmbeddingActivity, insertMilvusPageActivity, summarizePageActivityActivity,
+					readFileFromS3Activity);
 			
 			workerFactory.start();
 			LOG.info("[TemporalInitializer] - onStart | Zeta Worker started on task queue: " + PDF_INGESTION_QUEUE);

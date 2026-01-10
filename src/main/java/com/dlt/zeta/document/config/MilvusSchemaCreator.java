@@ -22,7 +22,7 @@ public class MilvusSchemaCreator {
 	
 	@PostConstruct
 	public void createMilvusPagesCollection() {
-		String collectionName = "milvus_pages";
+		String collectionName = "document_qa_collection_5";
 		FieldType idField = FieldType.newBuilder()
 				.withName("id")
 				.withDataType(DataType.VarChar)
