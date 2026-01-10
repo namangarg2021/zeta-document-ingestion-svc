@@ -51,6 +51,10 @@ dependencies {
     implementation "io.quarkus:quarkus-rest-client-jackson"
 
     //datasource
+    implementation 'io.quarkus:quarkus-flyway'
+    implementation 'io.quarkus:quarkus-jdbc-postgresql'
+    implementation 'io.quarkus:quarkus-hibernate-orm-panache'
+    implementation 'io.quarkus:quarkus-hibernate-validator'
     implementation "dev.langchain4j:langchain4j-milvus:0.35.0"
 
     //oidc
